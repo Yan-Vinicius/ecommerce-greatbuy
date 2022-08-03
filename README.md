@@ -6,3 +6,4 @@ Python
 Django  
 Html 5  
 Css  
+JavaScript  
