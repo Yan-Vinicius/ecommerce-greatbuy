@@ -9,20 +9,6 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="main_nav">
-      <ul class="navbar-nav">
-      	<li class="nav-item dropdown">
-           <a class="nav-link" href="{% url 'home' %}">Início</a>
-        </li>
-        <li class="nav-item">
-			<a class="nav-link" href="#">Sobre</a>
-        </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Categoria</a>
-        </li>
-      </ul>
-    </div> <!-- collapse .// -->
   </div> <!-- container .// -->
 </nav>
 
@@ -37,8 +23,9 @@
 	<aside class="col-md-3">
 		<nav class="card">
 			<ul class="menu-category">
+				<li><a class="dropdown-item" href="{% url 'store' %}">All products</a></li>
 				{% for category in categories %}
-				<li><a href="#">{{ category.category_name }}</a></li>
+				<li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
 				{% endfor %}
 			</ul>
 		</nav>
@@ -58,7 +45,7 @@
 <div class="container">
 
 <header class="section-heading">
-	<a href="#" class="btn btn-outline-primary float-right">Ver tudo</a>
+	<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
 	<h3 class="section-title">Produtos populares</h3>
 </header><!-- sect-heading -->
 
@@ -66,7 +53,7 @@
 <div class="row">
 	{% for product in products %}
 	<div class="col-md-3">
-		<div href="#" class="card card-product-grid">
+		<div href="{{ product.get_url }}" class="card card-product-grid">
 			<a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images.url }}"> </a>
 			<figcaption class="info-wrap">
 				<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
