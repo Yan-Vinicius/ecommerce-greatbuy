@@ -90,9 +90,9 @@
 				<p class="text-success">Free shipping</p>
 				<br>
 				<p>
-					<a href="#" class="btn btn-primary btn-block"> Details </a>
-					<a href="#" class="btn btn-light btn-block"><i class="fa fa-heart"></i>
-						<span class="text">Add to wishlist</span>
+					<a href="{{ product.get_url }}" class="btn btn-primary btn-block"> Details </a>
+					<a href="{% url 'add_cart' product.id %}" class="btn btn-light btn-block"><i class="fa fa-shopping-cart"></i>
+						<span class="text">Add to cart</span>
 					</a>
 				</p>
 			</div> <!-- info-aside.// -->
@@ -115,9 +115,5 @@
 </div>
 
 </div> <!-- container .//  -->
-
-
-
-
 
 {% endblock %}
