@@ -4,116 +4,130 @@
 
 
 <section class="section-content padding-y">
-<div class="container">
-
-<div class="row">
-	<aside class="col-md-3">
-	<br>
-	<br>
-	<br>
-<div class="card">
-	<article class="filter-group">
-			<div class="card-header">
-				<div class="btn-group">
-
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Categorias
-				</button>
-
-					  	<div class="dropdown-menu">
-							<a class="dropdown-item" href="{% url 'store' %}">All products</a>
-
-							{% for category in links %}
-							<a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a>
+	<div class="container">
+		{% if 'search' in request.path %}
+			<h2>Search result</h2>
+		{% else %}
+		{% endif %}
+		<div class="row">
+			<aside class="col-md-3">
+			<br>
+			<br>
+			<br>
+			<div class="row">
+				<aside class="col-md-12">
+					<nav class="card">
+						<ul class="menu-category">
+							<li><a class="dropdown-item" href="{% url 'store' %}">All products</a></li>
+							{% for category in categories %}
+							<li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
 							{% endfor %}
-					  	</div>
-					</div>
-			</div><!-- card-body.// -->
+						</ul>
+					</nav>
+				</aside> <!-- col.// -->
+			</div> <!-- row.// -->
 
-	</article> <!-- filter-group .// -->
-</div> <!-- card.// -->
+			</aside> <!-- col.// -->
+			<main class="col-md-9">
 
-	</aside> <!-- col.// -->
-	<main class="col-md-9">
-
-<header class="border-bottom mb-4 pb-3">
-		<div class="form-inline">
-			<span class="mr-md-auto"><b>{{ product_count }}</b> Items found </span>
-			<select class="mr-2 form-control">
-				<option>Latest items</option>
-				<option>Trending</option>
-				<option>Most Popular</option>
-				<option>Cheapest</option>
-			</select>
-		</div>
-</header><!-- sect-heading -->
-
-{% for product in products %}
-<article class="card card-product-list">
-	<div class="row no-gutters">
-		<aside class="col-md-3">
-			<a href="{{ product.get_url }}" class="img-wrap">
-				<span class="badge badge-danger"> NEW </span>
-				<img src="{{ product.images.url }}">
-			</a>
-		</aside> <!-- col.// -->
-		<div class="col-md-6">
-			<div class="info-main">
-				<a href="{{ product.get_url }}" class="h5 title"> {{ product.product_name }}  </a>
-
-				<!--<div class="rating-wrap mb-3">
-					<ul class="rating-stars">
-						 <li style="width:80%" class="stars-active">
-							<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-							<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</li>
-						<li>
-							<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-							<i class="fa fa-star"></i> <i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-						</li>
-					</ul>
-					<div class="label-rating">7/10</div>
-				</div>// --> <!-- rating-wrap.// -->
-
-
-				<p> {{ product.description }} </p>
-			</div> <!-- info-main.// -->
-		</div> <!-- col.// -->
-		<aside class="col-sm-3">
-			<div class="info-aside">
-				<div class="price-wrap">
-					<span class="price h5"> ${{ product.price }} </span>
-					<!--<del class="price-old"> $198</del>// -->
-				</div> <!-- info-price-detail // -->
-				<p class="text-success">Free shipping</p>
-				<br>
-				<p>
-					<a href="{{ product.get_url }}" class="btn btn-primary btn-block"> Details </a>
-					<a href="{% url 'add_cart' product.id %}" class="btn btn-light btn-block"><i class="fa fa-shopping-cart"></i>
-						<span class="text">Add to cart</span>
+		<header class="border-bottom mb-4 pb-3">
+				<div class="form-inline">
+					<span class="mr-md-auto"><b>{{ product_count }}</b> Items found </span>
+					<select class="mr-2 form-control">
+						<option>Latest items</option>
+						<option>Trending</option>
+						<option>Most Popular</option>
+						<option>Cheapest</option>
+					</select>
+				</div>
+		</header><!-- sect-heading -->
+		{% if products %}
+		{% for product in products %}
+		<article class="card card-product-list">
+			<div class="row no-gutters">
+				<aside class="col-md-3">
+					<a href="{{ product.get_url }}" class="img-wrap">
+						<span class="badge badge-danger"> NEW </span>
+						<img src="{{ product.images.url }}">
 					</a>
-				</p>
-			</div> <!-- info-aside.// -->
-		</aside> <!-- col.// -->
-	</div> <!-- row.// -->
-</article> <!-- card-product .// -->
-{% endfor %}
+				</aside> <!-- col.// -->
+				<div class="col-md-6">
+					<div class="info-main">
+						<a href="{{ product.get_url }}" class="h5 title"> {{ product.product_name }}  </a>
+
+						<!--<div class="rating-wrap mb-3">
+							<ul class="rating-stars">
+								 <li style="width:80%" class="stars-active">
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</li>
+								<li>
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i> <i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+								</li>
+							</ul>
+							<div class="label-rating">7/10</div>
+						</div>// --> <!-- rating-wrap.// -->
 
 
-<nav aria-label="Page navigation sample">
-  <ul class="pagination">
-    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
-</nav>
+						<p> {{ product.description }} </p>
+					</div> <!-- info-main.// -->
+				</div> <!-- col.// -->
+				<aside class="col-sm-3">
+					<div class="info-aside">
+						<div class="price-wrap">
+							<span class="price h5"> ${{ product.price }} </span>
+							<!--<del class="price-old"> $198</del>// -->
+						</div> <!-- info-price-detail // -->
+						<p class="text-success">Free shipping</p>
+						<br>
+						<p>
+							<a href="{{ product.get_url }}" class="btn btn-primary btn-block"> Details </a>
+						</p>
+					</div> <!-- info-aside.// -->
+				</aside> <!-- col.// -->
+			</div> <!-- row.// -->
+		</article> <!-- card-product .// -->
+		{% endfor %}
+		{% else %}
+			<div>
+				<h2>No products found</h2>
+			</div>
+		{% endif %}
 
-	</main> <!-- col.// -->
+		<nav aria-label="Page navigation sample">
+			{% if products.has_other_pages %}
+			<ul class="pagination">
+				{% if products.has_previous %}
+					<li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a></li>
+				{% else %}
+					<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+				{% endif %}
 
-</div>
+				{% for i in products.paginator.page_range %}
+					{% if products.number == i %}
+						<li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+					{% else %}
+						<li class="page-item"><a class="page-link" href="?page{{i}}">{{ i }}</a></li>
+					{% endif %}
+				{% endfor %}
 
-</div> <!-- container .//  -->
+				{% if products.has_next %}
+					<li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a></li>
+				{% else %}
+					<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+				{% endif %}
+			</ul>
+			{% endif %}
+		</nav>
 
+			</main> <!-- col.// -->
+
+	</div>
+
+
+	</div> <!-- container .//  -->
+</section>
 {% endblock %}
